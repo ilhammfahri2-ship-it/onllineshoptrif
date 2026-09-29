@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Admin | hamzscondtrif_id</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+        :root {
+            --bg: #070b14;
+            --bg-soft: #0d1424;
+            --panel: rgba(15, 23, 42, 0.8);
+            --panel-strong: rgba(10, 15, 28, 0.96);
+            --primary: #3b82f6;
+            --primary-2: #60a5fa;
+            --text: #f8fafc;
+            --muted: #94a3b8;
+            --border: rgba(148, 163, 184, 0.18);
+            --danger: #ef4444;
+            --success: #22c55e;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background:
+                radial-gradient(circle at top left, rgba(59, 130, 246, 0.28), transparent 30%),
+                radial-gradient(circle at bottom right, rgba(96, 165, 250, 0.18), transparent 35%),
+                var(--bg);
+            color: var(--text);
+        }
+
+        .login-shell {
+            width: min(92vw, 430px);
+            background: rgba(15, 23, 42, 0.78);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            backdrop-filter: blur(18px);
+            padding: 30px 24px;
+            box-shadow: 0 25px 60px rgba(2, 6, 23, 0.45);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            font-weight: 800;
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+        }
+
+        .brand i {
+            color: var(--primary-2);
+            font-size: 1.3rem;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: var(--muted);
+            margin-bottom: 22px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #dbeafe;
+            font-size: 0.82rem;
+            font-weight: 600;
+        }
+
+        .input-wrap {
+            position: relative;
+        }
+
+        .input-wrap i {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted);
+        }
+
+        .input-wrap input {
+            width: 100%;
+            padding: 14px 14px 14px 42px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            background: rgba(15, 23, 42, 0.9);
+            color: var(--text);
+            outline: none;
+            font-size: 0.96rem;
+        }
+
+        .input-wrap input:focus {
+            border-color: rgba(96, 165, 250, 0.7);
+            box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.12);
+        }
+
+        .login-btn {
+            width: 100%;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #2563eb, #3b82f6);
+            color: white;
+            padding: 14px 18px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 10px;
+            box-shadow: 0 12px 24px rgba(37, 99, 235, 0.28);
+        }
+
+        .helper-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 18px;
+            font-size: 0.8rem;
+            color: var(--muted);
+        }
+
+        .helper-row a {
+            color: var(--primary-2);
+            text-decoration: none;
+        }
+
+        .alert {
+            margin-top: 18px;
+            padding: 12px 14px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            display: none;
+        }
+
+        .alert.error {
+            display: block;
+            background: rgba(239, 68, 68, 0.12);
+            border: 1px solid rgba(239, 68, 68, 0.25);
+            color: #fca5a5;
+        }
+
+        .demo {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 0.78rem;
+            color: var(--muted);
+            background: rgba(15, 23, 42, 0.55);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 10px 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-shell">
+        <div class="brand">
+            <i class="fa-solid fa-bolt-lightning"></i>
+            <span>hamzscondtrif_id</span>
+        </div>
+        <div class="subtitle">Admin Login</div>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <div class="input-wrap">
+                    <i class="fa-solid fa-user"></i>
+                    <input id="username" type="text" placeholder="Masukkan username" required />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <div class="input-wrap">
+                    <i class="fa-solid fa-lock"></i>
+                    <input id="password" type="password" placeholder="Masukkan password" required />
+                </div>
+            </div>
+
+            <button class="login-btn" type="submit">Masuk ke Dashboard</button>
+
+            <div class="helper-row">
+                <span>Ingat saya</span>
+                <a href="index.html">Kembali ke toko</a>
+            </div>
+
+            <div class="alert error" id="loginAlert">Username atau password salah.</div>
+        </form>
+
+        <div class="demo">Demo login: admin / admin123</div>
+    </div>
+
+    <script>
+        const loginForm = document.getElementById('loginForm');
+        const loginAlert = document.getElementById('loginAlert');
+
+        loginForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
+
+            if (username === 'admin' && password === 'admin123') {
+                localStorage.setItem('adminLoggedIn', 'true');
+                window.location.href = 'dashboard.html';
+                return;
+            }
+
+            loginAlert.style.display = 'block';
+        });
+    </script>
+</body>
+</html>

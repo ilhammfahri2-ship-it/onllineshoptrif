@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hamzscondtrif_id // Premium Thrift Shop</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- FontAwesome untuk Icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Background Animated Glow Effect -->
+    <div class="bg-glow">
+        <div class="glow-orb orb-1"></div>
+        <div class="glow-orb orb-2"></div>
+    </div>
+
+    <!-- Header / Navbar -->
+    <header class="navbar">
+        <div class="logo">
+            <i class="fa-solid fa-bolt-lightning"></i>
+            <span>hamzscondtrif_id</span>
+        </div>
+        <div class="nav-actions">
+            <button class="theme-toggle" id="themeToggle" type="button" aria-label="Ganti tema">
+                <i class="fa-solid fa-moon"></i>
+                <span>Malam</span>
+            </button>
+            <button class="cart-btn" id="cartBtn">
+                <i class="fa-solid fa-bag-shopping"></i>
+                <span>Keranjang</span>
+                <span class="cart-badge" id="cartCount">0</span>
+            </button>
+        </div>
+    </header>
+
+    <div class="ticker-bar">
+        <div class="ticker-content">
+            <span>FLASH SALE • DISKON 5% - 20% • HARI INI SAJA • FREE ONGKIR MINIMAL RP 500 RIBU • READY STOCK • STREETWEAR VINTAGE •</span>
+            <span>FLASH SALE • DISKON 5% - 20% • HARI INI SAJA • FREE ONGKIR MINIMAL RP 500 RIBU • READY STOCK • STREETWEAR VINTAGE •</span>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <span class="badge-new">⚡ VINTAGE & STREETWEAR DROPS</span>
+            <h1>HAMZZ SECOND<br><span>STREET STYLE</span></h1>
+            <p>Temukan koleksi pakaian secondhand pilihan terbaik dengan kualitas premium, kondisi mint, dan gaya autentik.</p>
+            <div class="hero-actions">
+                <a href="#shop" class="explore-btn">Jelajahi Katalog <i class="fa-solid fa-arrow-down"></i></a>
+                <a href="https://wa.me/6289505811428" class="whatsapp-btn" target="_blank" rel="noopener noreferrer">Chat Admin <i class="fa-brands fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <section class="feature-strip">
+        <div class="feature-item">
+            <i class="fa-solid fa-shield-heart"></i>
+            <div>
+                <strong>Verified Condition</strong>
+                <span>Setiap item dicek kualitasnya</span>
+            </div>
+        </div>
+        <div class="feature-item">
+            <i class="fa-solid fa-truck-fast"></i>
+            <div>
+                <strong>Fast Shipping</strong>
+                <span>Gratis ongkir mulai Rp 500 ribu</span>
+            </div>
+        </div>
+        <div class="feature-item">
+            <i class="fa-solid fa-lock"></i>
+            <div>
+                <strong>Secure Payment</strong>
+                <span>Transaksi aman & cepat</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="promo-banner">
+        <div class="promo-content">
+            <span class="promo-tag">PROMO KHUSUS HARI INI</span>
+            <h3>Spin & dapatkan potongan harga terbaik untuk outfit impian kamu.</h3>
+            <p>Yuk, coba keberuntunganmu! Setiap pembeli bisa mendapatkan diskon spesial mulai dari 5% hingga 20% untuk item thrift favorite dari hamzscondtrif_id.</p>
+            <div class="promo-actions">
+                <button type="button" class="promo-btn" id="spinPromoBtn">Putar Spin & Dapatkan Diskon</button>
+                <span class="promo-note" id="promoStatus">Belum ada potongan harga aktif</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="story-section">
+        <div class="section-title">
+            <h2>Kenapa pilih hamzscondtrif_id?</h2>
+        </div>
+        <div class="story-grid">
+            <div class="story-box">
+                <div class="story-icon"><i class="fa-solid fa-shirt"></i></div>
+                <h3>Curated Vintage</h3>
+                <p>Kami memilih tiap item dengan detail, kualitas, dan gaya yang tetap relevan dengan tren streetwear.</p>
+            </div>
+            <div class="story-box">
+                <div class="story-icon"><i class="fa-solid fa-check-double"></i></div>
+                <h3>Verified Condition</h3>
+                <p>Setiap barang sudah melalui pengecekan kondisi sebelum masuk katalog agar lebih aman untuk dibeli.</p>
+            </div>
+            <div class="story-box">
+                <div class="story-icon"><i class="fa-solid fa-truck"></i></div>
+                <h3>Pengiriman Cepat</h3>
+                <p>Proses packing dan kirim dilakukan dengan cepat agar produk sampai ke tanganmu dalam kondisi siap pakai.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats-section">
+        <div class="stat-item">
+            <strong>1.2k+</strong>
+            <span>Pelanggan puas</span>
+        </div>
+        <div class="stat-item">
+            <strong>98%</strong>
+            <span>Repeat order</span>
+        </div>
+        <div class="stat-item">
+            <strong>24 jam</strong>
+            <span>Respon admin</span>
+        </div>
+        <div class="stat-item">
+            <strong>100%</strong>
+            <span>Original curation</span>
+        </div>
+    </section>
+
+    <!-- Main Shop Section -->
+    <main class="shop-container" id="shop">
+        <div class="section-title">
+            <h2>Katalog Produk</h2>
+            <p>Pilih item favoritmu sebelum kehabisan (Stok terbatas / 1 pcs per item)</p>
+        </div>
+
+        <div class="shop-toolbar">
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="searchInput" placeholder="Cari hoodie, tee, cargo...">
+            </div>
+
+            <div class="filter-bar">
+                <button class="filter-tab active" data-filter="all">Semua</button>
+                <button class="filter-tab" data-filter="hoodie">Hoodie & Jacket</button>
+                <button class="filter-tab" data-filter="tee">Vintage Tee</button>
+                <button class="filter-tab" data-filter="cargo">Cargo & Pants</button>
+            </div>
+        </div>
+
+        <section class="featured-section">
+            <div class="featured-header">
+                <h3>Produk Unggulan</h3>
+                <span>Baru & paling laris minggu ini</span>
+            </div>
+            <div class="featured-grid" id="featuredGrid"></div>
+        </section>
+
+        <!-- Grid Produk -->
+        <div class="product-grid" id="productGrid">
+            <!-- Produk akan dirender lewat JavaScript -->
+        </div>
+    </main>
+
+    <section class="testimonial-section">
+        <div class="section-title">
+            <h2>Testimoni Pelanggan</h2>
+        </div>
+        <div class="testimonial-grid">
+            <div class="testimonial-card">
+                <div class="stars">★★★★★</div>
+                <p>"Barangnya bagus banget, kualitas sesuai deskripsi. Nggak nyesel beli di hamzscondtrif_id."</p>
+                <strong>Rian - Bandung</strong>
+            </div>
+            <div class="testimonial-card">
+                <div class="stars">★★★★★</div>
+                <p>"Fast respon dan pengiriman cepat. Style vintage yang aku cari ternyata ada dan oke banget."</p>
+                <strong>Nadya - Surabaya</strong>
+            </div>
+            <div class="testimonial-card">
+                <div class="stars">★★★★★</div>
+                <p>"Kualitas thrift-nya premium banget, cocok buat yang suka outfit streetwear tapi masih rapi."</p>
+                <strong>Fajar - Jakarta</strong>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq-section">
+        <div class="section-title">
+            <h2>Pertanyaan Umum</h2>
+        </div>
+        <div class="faq-list">
+            <details open>
+                <summary>Apakah semua barang sudah dicek kondisinya?</summary>
+                <p>Ya, semua item sudah melalui pengecekan kualitas sebelum masuk katalog agar lebih aman dan sesuai deskripsi.</p>
+            </details>
+            <details>
+                <summary>Berapa lama pengiriman?</summary>
+                <p>Biasanya pengiriman dilakukan dalam 1–3 hari kerja setelah pembayaran dikonfirmasi dan dapat bervariasi tergantung wilayah.</p>
+            </details>
+            <details>
+                <summary>Apakah bisa request ukuran atau item tertentu?</summary>
+                <p>Bisa. Kamu bisa chat admin melalui WhatsApp untuk request item tertentu yang sedang dibutuhkan.</p>
+            </details>
+            <details>
+                <summary>Bagaimana cara konfirmasi pembayaran?</summary>
+                <p>Setelah transfer, pilih metode pembayaran lalu klik tombol “Saya Sudah Transfer” untuk otomatis dikirim ke WhatsApp admin.</p>
+            </details>
+        </div>
+    </section>
+
+    <!-- Modal Keranjang Belanja -->
+    <div class="modal-overlay" id="cartModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-bag-shopping"></i> Keranjang Belanja</h3>
+                <button class="close-btn" id="closeCart">&times;</button>
+            </div>
+            <div class="cart-items-container" id="cartItemsContainer">
+                <!-- Item keranjang masuk disini -->
+                <p class="empty-cart-text">Keranjang kamu masih kosong.</p>
+            </div>
+            <div class="customer-form">
+                <div class="form-row">
+                    <label>Nama Lengkap</label>
+                    <input type="text" id="customerName" placeholder="Masukkan nama kamu">
+                </div>
+                <div class="form-row">
+                    <label>No. WhatsApp</label>
+                    <input type="tel" id="customerPhone" placeholder="08xxxxxxxxxx">
+                </div>
+                <div class="form-row">
+                    <label>Alamat Pengiriman</label>
+                    <textarea id="customerAddress" rows="3" placeholder="Alamat lengkap untuk pengiriman"></textarea>
+                </div>
+            </div>
+
+            <div class="cart-footer" id="cartFooter" style="display: none;">
+                <div class="summary-list">
+                    <div class="summary-row">
+                        <span>Subtotal</span>
+                        <strong id="subtotalPrice">Rp 0</strong>
+                    </div>
+                    <div class="summary-row">
+                        <span>Ongkir</span>
+                        <strong id="shippingPrice">Rp 0</strong>
+                    </div>
+                    <div class="summary-row total-row">
+                        <span>Total Pembayaran</span>
+                        <strong id="cartTotalPrice">Rp 0</strong>
+                    </div>
+                </div>
+                <div class="status-tracker" id="cartStatusTracker" style="display: none;">
+                    <span>Status pesanan</span>
+                    <strong id="cartStatusText">Belum ada order</strong>
+                </div>
+                <button class="checkout-btn" id="checkoutBtn">Lanjut ke Pembayaran <i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Pembayaran QRIS -->
+    <div class="modal-overlay" id="qrisModal">
+        <div class="modal-content qris-content">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-qrcode"></i> Pembayaran E-Wallet</h3>
+                <button class="close-btn" id="closeQris">&times;</button>
+            </div>
+            <div class="qris-body">
+                <p class="instruction">Pilih metode pembayaran. Jika sudah transfer, pilih metode yang sesuai lalu klik tombol pembayaran untuk konfirmasi. Order otomatis akan terkirim ke WhatsApp admin.</p>
+
+                <div class="wallet-options" id="walletOptions">
+                    <button class="wallet-option active" data-wallet="qris">
+                        <i class="fa-solid fa-qrcode"></i>
+                        QRIS
+                    </button>
+                    <button class="wallet-option" data-wallet="gopay">
+                        <i class="fa-brands fa-google-pay"></i>
+                        GoPay
+                    </button>
+                    <button class="wallet-option" data-wallet="ovo">
+                        <i class="fa-solid fa-wallet"></i>
+                        OVO
+                    </button>
+                    <button class="wallet-option" data-wallet="dana">
+                        <i class="fa-solid fa-sack-dollar"></i>
+                        DANA
+                    </button>
+                </div>
+
+                <div class="qris-card">
+                    <div class="merchant-info">
+                        <strong>hamzscondtrif_id</strong>
+                        <span id="selectedWalletLabel">Pembayaran via QRIS</span>
+                    </div>
+                    <div class="payment-display" id="paymentDisplay">
+                        <div class="qr-code-box">
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=hamzscondtrif_id%20payment" alt="QRIS payment code">
+                        </div>
+                    </div>
+                    <div class="amount-tag">
+                        <span>Total Tagihan:</span>
+                        <h4 id="qrisTotalAmount">Rp 0</h4>
+                    </div>
+                </div>
+                <button class="confirm-payment-btn" id="confirmPaymentBtn">Bayar / Transfer Sekarang</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Spin Diskon -->
+    <div class="modal-overlay" id="spinModal">
+        <div class="modal-content spin-content">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-gift"></i> Spin Diskon</h3>
+                <button class="close-btn" id="closeSpin">&times;</button>
+            </div>
+            <div class="spin-wheel-wrap">
+                <div class="wheel-pointer"></div>
+                <div class="fortune-wheel" id="fortuneWheel"></div>
+            </div>
+            <button class="spin-wheel-btn" id="spinWheelBtn">Putar & Ambil Diskon</button>
+            <p class="spin-result" id="spinResult">Coba keberuntunganmu! Dapatkan potongan harga spesial untuk belanja thrift hari ini.</p>
+        </div>
+    </div>
+
+    <!-- Modal Sukses -->
+    <div class="modal-overlay" id="successModal">
+        <div class="modal-content success-content">
+            <div class="success-icon">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <h2>Pembayaran Berhasil!</h2>
+            <p>Terima kasih telah berbelanja di hamzscondtrif_id. Pesanan kamu sedang diproses dan akan segera dikirim.</p>
+            <div class="status-tracker success-status-tracker">
+                <span>Status pesanan</span>
+                <strong id="successStatusText">Belum dikirim</strong>
+            </div>
+            <button class="done-btn" id="doneBtn">Kembali ke Beranda</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 hamzscondtrif_id. All Rights Reserved. Crafted with Cyber-Blue Theme.</p>
+    </footer>
+
+    <a class="whatsapp-float" href="https://wa.me/6289505811428" target="_blank" rel="noopener noreferrer" aria-label="Chat WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- JavaScript Link -->
+    <script src="script.js"></script>
+</body>
+</html>

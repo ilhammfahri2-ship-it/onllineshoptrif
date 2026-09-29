@@ -1,0 +1,1348 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard Admin | hamzscondtrif_id</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+        :root {
+            --bg: #070913;
+            --bg-soft: #0e1326;
+            --bg-panel: rgba(14, 19, 38, 0.92);
+            --bg-panel-2: rgba(15, 23, 42, 0.8);
+            --primary: #2563eb;
+            --primary-2: #60a5fa;
+            --success: #10b981;
+            --warning: #fbbf24;
+            --danger: #ef4444;
+            --text: #f8fafc;
+            --muted: #94a3b8;
+            --border: rgba(148, 163, 184, 0.18);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        a { text-decoration: none; }
+
+        .dashboard-shell {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 260px;
+            background: rgba(9, 13, 24, 0.96);
+            border-right: 1px solid var(--border);
+            padding: 26px 18px;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 32px;
+            font-weight: 800;
+            letter-spacing: 0.04em;
+        }
+
+        .brand i {
+            color: var(--primary-2);
+            font-size: 1.2rem;
+        }
+
+        .nav-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .nav-group-label {
+            font-size: 0.7rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin: 18px 10px 8px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 14px;
+            border-radius: 12px;
+            color: #dbeafe;
+            font-weight: 600;
+            transition: 0.2s ease;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            background: rgba(37, 99, 235, 0.15);
+            border: 1px solid rgba(96, 165, 250, 0.18);
+        }
+
+        .main {
+            flex: 1;
+            padding: 26px;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 18px;
+            margin-bottom: 26px;
+            flex-wrap: wrap;
+        }
+
+        .topbar h1 {
+            margin: 0;
+            font-size: clamp(1.8rem, 2vw, 2.5rem);
+        }
+
+        .topbar-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 18px;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            font-weight: 700;
+            transition: 0.2s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #1d4ed8, #2563eb);
+            color: white;
+            box-shadow: 0 8px 18px rgba(37, 99, 235, 0.25);
+        }
+
+        .btn-secondary {
+            background: rgba(15, 23, 42, 0.8);
+            color: white;
+            border: 1px solid var(--border);
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 18px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: linear-gradient(180deg, rgba(15, 23, 42, 0.9), rgba(11, 17, 32, 0.9));
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 20px 18px;
+            box-shadow: 0 18px 30px rgba(2, 6, 23, 0.18);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: "";
+            position: absolute;
+            inset: 0 auto auto 0;
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle, rgba(96, 165, 250, 0.18), transparent 70%);
+        }
+
+        .stat-card small {
+            display: block;
+            color: var(--muted);
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-card strong {
+            font-size: 1.8rem;
+            color: var(--primary-2);
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 14px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .trend {
+            padding: 6px 10px;
+            border-radius: 999px;
+            font-size: 0.72rem;
+            font-weight: 700;
+        }
+
+        .trend.up {
+            background: rgba(16, 185, 129, 0.12);
+            color: #6ee7b7;
+        }
+
+        .trend.down {
+            background: rgba(239, 68, 68, 0.12);
+            color: #fca5a5;
+        }
+
+        .overview-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .sales-chart {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            gap: 12px;
+            height: 180px;
+            padding-top: 18px;
+        }
+
+        .chart-column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            height: 100%;
+            justify-content: end;
+        }
+
+        .chart-bar {
+            width: 100%;
+            max-width: 42px;
+            background: linear-gradient(180deg, #7dd3fc, #2563eb);
+            border-radius: 10px 10px 0 0;
+            height: var(--h, 50%);
+            box-shadow: 0 10px 18px rgba(37, 99, 235, 0.22);
+        }
+
+        .chart-column span {
+            color: var(--muted);
+            font-size: 0.72rem;
+        }
+
+        .alert-list,
+        .activity-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .alert-item,
+        .activity-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 12px 14px;
+        }
+
+        .alert-item strong,
+        .activity-item strong {
+            display: block;
+            margin-bottom: 2px;
+            font-size: 0.92rem;
+        }
+
+        .alert-item small,
+        .activity-item small {
+            color: var(--muted);
+            font-size: 0.76rem;
+        }
+
+        .risk-tag {
+            padding: 5px 8px;
+            border-radius: 999px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            background: rgba(251, 191, 36, 0.12);
+            color: #fbbf24;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr;
+            gap: 24px;
+        }
+
+        .settings-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+            margin-top: 18px;
+        }
+
+        .toggle-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 16px;
+            border-radius: 14px;
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid var(--border);
+        }
+
+        .switch {
+            width: 48px;
+            height: 28px;
+            background: rgba(148, 163, 184, 0.28);
+            border-radius: 999px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .switch::before {
+            content: "";
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            background: white;
+            transition: all 0.2s ease;
+        }
+
+        .switch.on {
+            background: rgba(16, 185, 129, 0.35);
+        }
+
+        .switch.on::before {
+            left: 24px;
+            background: #6ee7b7;
+        }
+
+        .card {
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 18px 30px rgba(2, 6, 23, 0.14);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+            gap: 12px;
+        }
+
+        .card-header h2 {
+            margin: 0;
+            font-size: 1.15rem;
+        }
+
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            border-radius: 999px;
+            padding: 7px 10px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            background: rgba(37, 99, 235, 0.1);
+            color: #bfdbfe;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .field.full {
+            grid-column: 1 / -1;
+        }
+
+        .field label {
+            font-size: 0.8rem;
+            color: var(--muted);
+            font-weight: 600;
+        }
+
+        .field input,
+        .field select {
+            width: 100%;
+            background: rgba(15, 23, 42, 0.75);
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 12px 14px;
+            outline: none;
+        }
+
+        .field input:focus,
+        .field select:focus {
+            border-color: rgba(96, 165, 250, 0.6);
+            box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.12);
+        }
+
+        .product-list,
+        .order-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .product-item,
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            background: var(--bg-panel-2);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 12px 14px;
+        }
+
+        .item-info strong {
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .item-info small,
+        .order-meta {
+            color: var(--muted);
+            font-size: 0.78rem;
+        }
+
+        .price {
+            color: var(--primary-2);
+            font-weight: 800;
+        }
+
+        .status-pill {
+            display: inline-flex;
+            padding: 6px 10px;
+            border-radius: 999px;
+            font-size: 0.72rem;
+            font-weight: 700;
+        }
+
+        .status-pill.pending { background: rgba(245, 158, 11, 0.12); color: #fbbf24; }
+        .status-pill.paid { background: rgba(34, 197, 94, 0.12); color: #4ade80; }
+        .status-pill.shipped { background: rgba(59, 130, 246, 0.12); color: #60a5fa; }
+
+        .order-status-select {
+            background: rgba(15, 23, 42, 0.8);
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 8px 10px;
+            font-weight: 600;
+            outline: none;
+        }
+
+        .order-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .mini-actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .mini-btn {
+            padding: 7px 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            border: 1px solid var(--border);
+            background: rgba(15, 23, 42, 0.75);
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .mini-btn.delete {
+            color: #fca5a5;
+            border-color: rgba(239, 68, 68, 0.25);
+        }
+
+        .toolbar-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 14px 18px;
+            margin-bottom: 24px;
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 260px;
+            flex: 1;
+            background: rgba(15, 23, 42, 0.75);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 10px 12px;
+        }
+
+        .search-box input {
+            border: none;
+            background: transparent;
+            outline: none;
+            color: var(--text);
+            width: 100%;
+            font-size: 0.95rem;
+        }
+
+        .filter-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .chip {
+            border: 1px solid var(--border);
+            background: rgba(15, 23, 42, 0.65);
+            color: var(--text);
+            border-radius: 999px;
+            padding: 8px 12px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .chip.active {
+            background: rgba(37, 99, 235, 0.18);
+            border-color: rgba(96, 165, 250, 0.3);
+            color: #dbeafe;
+        }
+
+        .report-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 16px;
+            margin-bottom: 18px;
+        }
+
+        .report-card {
+            background: rgba(15, 23, 42, 0.72);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 16px;
+        }
+
+        .report-card small {
+            display: block;
+            color: var(--muted);
+            margin-bottom: 8px;
+        }
+
+        .report-card strong {
+            font-size: 1.5rem;
+            color: var(--primary-2);
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px 10px;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+            text-align: left;
+        }
+
+        th {
+            font-size: 0.72rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        td {
+            color: #e2e8f0;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 980px) {
+            .sidebar {
+                display: none;
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .main {
+                padding: 18px 14px 32px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-shell">
+        <aside class="sidebar">
+            <div class="brand">
+                <i class="fa-solid fa-bolt-lightning"></i>
+                <span>hamzscondtrif_id</span>
+            </div>
+
+            <div class="nav-group">
+                <div class="nav-group-label">Menu</div>
+                <a href="#dashboard" class="nav-item active"><i class="fa-solid fa-gauge-high"></i> Dashboard</a>
+                <a href="#products" class="nav-item"><i class="fa-solid fa-box-open"></i> Produk</a>
+                <a href="#orders" class="nav-item"><i class="fa-solid fa-wallet"></i> Pesanan</a>
+                <a href="#customers" class="nav-item"><i class="fa-solid fa-user-group"></i> Pelanggan</a>
+                <a href="#settings" class="nav-item"><i class="fa-solid fa-gear"></i> Pengaturan</a>
+            </div>
+        </aside>
+
+        <main class="main" id="dashboard">
+            <header class="topbar">
+                <h1>Dashboard Admin</h1>
+                <div class="topbar-actions">
+                    <a href="index.html" class="btn btn-secondary"><i class="fa-solid fa-house"></i> Beranda</a>
+                    <button type="button" class="btn btn-primary" id="logoutBtn"><i class="fa-solid fa-right-from-bracket"></i> Keluar</button>
+                </div>
+            </header>
+
+            <section class="stats">
+                <div class="stat-card">
+                    <small>Total Penjualan</small>
+                    <strong id="totalSalesStat">Rp 0</strong>
+                    <div class="stat-meta">
+                        <span class="trend up">+0%</span>
+                        <span style="color: var(--muted); font-size: 0.76rem;">Minggu ini</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <small>Pesanan Baru</small>
+                    <strong id="newOrdersStat">0</strong>
+                    <div class="stat-meta">
+                        <span class="trend up">+0%</span>
+                        <span style="color: var(--muted); font-size: 0.76rem;">Hari ini</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <small>Produk Aktif</small>
+                    <strong id="activeProductsStat">0</strong>
+                    <div class="stat-meta">
+                        <span class="trend up">+0</span>
+                        <span style="color: var(--muted); font-size: 0.76rem;">Bulan ini</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <small>Pengunjung</small>
+                    <strong>1.2k</strong>
+                    <div class="stat-meta">
+                        <span class="trend down">-2.1%</span>
+                        <span style="color: var(--muted); font-size: 0.76rem;">Kemarin</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="toolbar-card">
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass" style="color: var(--muted);"></i>
+                    <input type="text" id="searchProductInput" placeholder="Cari produk..." />
+                </div>
+                <div class="filter-chips">
+                    <button class="chip active" data-filter="all" type="button">Semua</button>
+                    <button class="chip" data-filter="hoodie" type="button">Hoodie</button>
+                    <button class="chip" data-filter="tee" type="button">Tee</button>
+                    <button class="chip" data-filter="cargo" type="button">Cargo</button>
+                </div>
+            </section>
+
+            <section class="overview-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Ringkasan Penjualan</h2>
+                        <span class="tag"><i class="fa-solid fa-chart-column"></i> 7 Hari</span>
+                    </div>
+
+                    <div class="sales-chart">
+                        <div class="chart-column"><div class="chart-bar" style="--h: 35%;"></div><span>Sen</span></div>
+                        <div class="chart-column"><div class="chart-bar" style="--h: 55%;"></div><span>Sel</span></div>
+                        <div class="chart-column"><div class="chart-bar" style="--h: 40%;"></div><span>Rab</span></div>
+                        <div class="chart-column"><div class="chart-bar" style="--h: 68%;"></div><span>Kam</span></div>
+                        <div class="chart-column"><div class="chart-bar" style="--h: 82%;"></div><span>Jum</span></div>
+                        <div class="chart-column"><div class="chart-bar" style="--h: 76%;"></div><span>Sab</span></div>
+                        <div class="chart-column"><div class="chart-bar" style="--h: 92%;"></div><span>Min</span></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Low Stock Alert</h2>
+                        <span class="tag"><i class="fa-solid fa-triangle-exclamation"></i> Waspada</span>
+                    </div>
+
+                    <div class="alert-list">
+                        <div class="alert-item">
+                            <div>
+                                <strong>Vintage Jacket</strong>
+                                <small>Stok tinggal 2 pcs</small>
+                            </div>
+                            <span class="risk-tag">Rendah</span>
+                        </div>
+                        <div class="alert-item">
+                            <div>
+                                <strong>Classic Tee</strong>
+                                <small>Stok tinggal 3 pcs</small>
+                            </div>
+                            <span class="risk-tag">Rendah</span>
+                        </div>
+                        <div class="alert-item">
+                            <div>
+                                <strong>Work Pants</strong>
+                                <small>Stok tinggal 4 pcs</small>
+                            </div>
+                            <span class="risk-tag">Cek</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-grid" id="orders">
+                <div class="card" id="products">
+                    <div class="card-header">
+                        <h2>Kelola Produk</h2>
+                        <span class="tag"><i class="fa-solid fa-box"></i> Inventory</span>
+                    </div>
+
+                    <form id="productForm">
+                        <div class="form-grid">
+                            <div class="field">
+                                <label>Nama Produk</label>
+                                <input type="text" id="productName" placeholder="Contoh: Vintage Hoodie" required />
+                            </div>
+                            <div class="field">
+                                <label>Kategori</label>
+                                <select id="productCategory">
+                                    <option value="hoodie">Hoodie & Jacket</option>
+                                    <option value="tee">Vintage Tee</option>
+                                    <option value="cargo">Cargo & Pants</option>
+                                </select>
+                            </div>
+                            <div class="field">
+                                <label>Harga</label>
+                                <input type="number" id="productPrice" placeholder="250000" required />
+                            </div>
+                            <div class="field">
+                                <label>Stok</label>
+                                <input type="number" id="productStock" placeholder="5" required />
+                            </div>
+                            <div class="field full">
+                                <label>Link Gambar</label>
+                                <input type="text" id="productImage" placeholder="https://..." />
+                            </div>
+                        </div>
+                        <div style="margin-top: 16px;">
+                            <button type="submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Simpan Produk</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Pesanan Terbaru</h2>
+                        <span class="tag"><i class="fa-solid fa-list-check"></i> Live</span>
+                    </div>
+
+                    <div class="order-list" id="dashboardOrderList">
+                        <div class="order-item">
+                            <div>
+                                <strong>Belum ada order</strong>
+                                <div class="order-meta">Pesanan baru akan muncul di sini.</div>
+                            </div>
+                            <span class="status-pill pending">Waiting</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card" style="margin-top: 24px;">
+                <div class="card-header">
+                    <h2>Laporan Penjualan</h2>
+                    <span class="tag"><i class="fa-solid fa-chart-pie"></i> Report</span>
+                </div>
+
+                <div class="report-grid">
+                    <div class="report-card">
+                        <small>Total Pendapatan</small>
+                        <strong id="reportIncome">Rp 0</strong>
+                    </div>
+                    <div class="report-card">
+                        <small>Jumlah Order</small>
+                        <strong id="reportOrderCount">0</strong>
+                    </div>
+                    <div class="report-card">
+                        <small>Rata-rata Order</small>
+                        <strong id="reportAvgOrder">Rp 0</strong>
+                    </div>
+                    <div class="report-card">
+                        <small>Produk Terlaris</small>
+                        <strong id="reportBestSeller">-</strong>
+                    </div>
+                </div>
+
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nama</th>
+                                <th>Produk</th>
+                                <th>Status</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody id="reportTableBody">
+                            <tr>
+                                <td colspan="4" style="text-align:center; color: var(--muted); padding: 18px 10px;">Belum ada data laporan.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="card" style="margin-top: 24px;">
+                <div class="card-header">
+                    <h2>Aktivitas Terbaru</h2>
+                    <span class="tag"><i class="fa-solid fa-clock-rotate-left"></i> Update</span>
+                </div>
+
+                <div class="activity-list">
+                    <div class="activity-item">
+                        <div>
+                            <strong>Produk baru ditambahkan</strong>
+                            <small>Vintage Hoodie • 10 menit yang lalu</small>
+                        </div>
+                        <span class="status-pill paid">Baru</span>
+                    </div>
+                    <div class="activity-item">
+                        <div>
+                            <strong>Pesanan dibayar</strong>
+                            <small>Rian - Rp 275.000 • 1 jam lalu</small>
+                        </div>
+                        <span class="status-pill paid">Lunas</span>
+                    </div>
+                    <div class="activity-item">
+                        <div>
+                            <strong>Stok diperbarui</strong>
+                            <small>Classic Tee menjadi 5 pcs • 2 jam lalu</small>
+                        </div>
+                        <span class="status-pill shipped">Update</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card" style="margin-top: 24px;" id="customers">
+                <div class="card-header">
+                    <h2>Pelanggan</h2>
+                    <span class="tag"><i class="fa-solid fa-user-check"></i> Loyal</span>
+                </div>
+
+                <div class="activity-list">
+                    <div class="activity-item">
+                        <div>
+                            <strong>Rian</strong>
+                            <small>2 kali transaksi • 98% repeat order</small>
+                        </div>
+                        <span class="status-pill paid">VIP</span>
+                    </div>
+                    <div class="activity-item">
+                        <div>
+                            <strong>Nadya</strong>
+                            <small>1 kali transaksi • pengiriman aktif</small>
+                        </div>
+                        <span class="status-pill pending">Baru</span>
+                    </div>
+                    <div class="activity-item">
+                        <div>
+                            <strong>Fajar</strong>
+                            <small>3 kali transaksi • pembeli rutin</small>
+                        </div>
+                        <span class="status-pill shipped">Aktif</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card" style="margin-top: 24px;" id="settings">
+                <div class="card-header">
+                    <h2>Pengaturan Toko</h2>
+                    <span class="tag"><i class="fa-solid fa-sliders"></i> Setup</span>
+                </div>
+
+                <div class="settings-grid">
+                    <div class="toggle-row">
+                        <div>
+                            <strong>Promo otomatis</strong>
+                            <small style="color: var(--muted); display: block; margin-top: 4px;">Aktifkan diskon hari tertentu</small>
+                        </div>
+                        <span class="switch on"></span>
+                    </div>
+                    <div class="toggle-row">
+                        <div>
+                            <strong>Pemberitahuan WhatsApp</strong>
+                            <small style="color: var(--muted); display: block; margin-top: 4px;">Notifikasi order baru</small>
+                        </div>
+                        <span class="switch on"></span>
+                    </div>
+                    <div class="toggle-row">
+                        <div>
+                            <strong>Maintenance mode</strong>
+                            <small style="color: var(--muted); display: block; margin-top: 4px;">Sementara nonaktifkan checkout</small>
+                        </div>
+                        <span class="switch"></span>
+                    </div>
+                    <div class="toggle-row">
+                        <div>
+                            <strong>Auto backup data</strong>
+                            <small style="color: var(--muted); display: block; margin-top: 4px;">Cadangkan produk dan order</small>
+                        </div>
+                        <span class="switch on"></span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card" style="margin-top: 24px;">
+                <div class="card-header">
+                    <h2>Daftar Produk</h2>
+                    <span class="tag"><i class="fa-solid fa-table-list"></i> Total 8</span>
+                </div>
+
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Produk</th>
+                                <th>Kategori</th>
+                                <th>Harga</th>
+                                <th>Stok</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="productTableBody">
+                            <tr>
+                                <td>Vintage Stussy Hoodie</td>
+                                <td>Hoodie</td>
+                                <td>Rp 275.000</td>
+                                <td>4</td>
+                                <td>
+                                    <div class="mini-actions">
+                                        <button class="mini-btn">Edit</button>
+                                        <button class="mini-btn delete">Hapus</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Carhartt Jacket</td>
+                                <td>Hoodie</td>
+                                <td>Rp 450.000</td>
+                                <td>2</td>
+                                <td>
+                                    <div class="mini-actions">
+                                        <button class="mini-btn">Edit</button>
+                                        <button class="mini-btn delete">Hapus</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Vintage Tee Nirvana</td>
+                                <td>Tee</td>
+                                <td>Rp 185.000</td>
+                                <td>6</td>
+                                <td>
+                                    <div class="mini-actions">
+                                        <button class="mini-btn">Edit</button>
+                                        <button class="mini-btn delete">Hapus</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        const isLoggedIn = localStorage.getItem('adminLoggedIn') === 'true';
+        if (!isLoggedIn) {
+            window.location.href = 'login.html';
+        }
+
+        const productForm = document.getElementById('productForm');
+        const productTableBody = document.getElementById('productTableBody');
+        const searchProductInput = document.getElementById('searchProductInput');
+        const dashboardOrderList = document.getElementById('dashboardOrderList');
+        const storageKey = 'hamzscondtrif_products';
+        const orderStorageKey = 'hamzscondtrif_orders';
+        const defaultProducts = [
+            { name: 'Vintage Stussy Hoodie', category: 'hoodie', price: 275000, stock: 4 },
+            { name: 'Carhartt Jacket', category: 'hoodie', price: 450000, stock: 2 },
+            { name: 'Vintage Tee Nirvana', category: 'tee', price: 185000, stock: 6 },
+            { name: 'Classic Cargo Pants', category: 'cargo', price: 210000, stock: 5 }
+        ];
+
+        let productList = JSON.parse(localStorage.getItem(storageKey)) || defaultProducts;
+        let currentFilter = 'all';
+        let editingIndex = null;
+
+        function saveProducts() {
+            localStorage.setItem(storageKey, JSON.stringify(productList));
+        }
+
+        function formatRupiah(value) {
+            return `Rp ${Number(value).toLocaleString('id-ID')}`;
+        }
+
+        function getCategoryLabel(category) {
+            const map = {
+                hoodie: 'Hoodie',
+                tee: 'Tee',
+                cargo: 'Cargo'
+            };
+            return map[category] || 'Lainnya';
+        }
+
+        function getStatusLabel(status) {
+            const map = {
+                Pending: 'Menunggu',
+                Paid: 'Dikemas',
+                Shipped: 'Dikirim'
+            };
+            return map[status] || status || 'Menunggu';
+        }
+
+        function getStatusClass(status) {
+            const map = {
+                Pending: 'pending',
+                Paid: 'paid',
+                Shipped: 'shipped'
+            };
+            return map[status] || 'pending';
+        }
+
+        function formatRupiah(value) {
+            return `Rp ${Number(value).toLocaleString('id-ID')}`;
+        }
+
+        function renderStats() {
+            const orders = JSON.parse(localStorage.getItem(orderStorageKey)) || [];
+            const totalSales = orders.reduce((sum, order) => sum + Number(order.total || 0), 0);
+            const totalOrders = orders.length;
+            const activeProducts = productList.length;
+
+            const totalSalesStat = document.getElementById('totalSalesStat');
+            const newOrdersStat = document.getElementById('newOrdersStat');
+            const activeProductsStat = document.getElementById('activeProductsStat');
+
+            if (totalSalesStat) totalSalesStat.textContent = formatRupiah(totalSales);
+            if (newOrdersStat) newOrdersStat.textContent = totalOrders;
+            if (activeProductsStat) activeProductsStat.textContent = activeProducts;
+
+            const reportIncome = document.getElementById('reportIncome');
+            const reportOrderCount = document.getElementById('reportOrderCount');
+            const reportAvgOrder = document.getElementById('reportAvgOrder');
+            const reportBestSeller = document.getElementById('reportBestSeller');
+            const reportTableBody = document.getElementById('reportTableBody');
+
+            if (!reportIncome || !reportOrderCount || !reportAvgOrder || !reportBestSeller || !reportTableBody) return;
+
+            const avgOrder = totalOrders ? totalSales / totalOrders : 0;
+            const salesByProduct = {};
+            orders.forEach((order) => {
+                order.items.forEach((item) => {
+                    salesByProduct[item.name] = (salesByProduct[item.name] || 0) + item.quantity;
+                });
+            });
+
+            const bestSeller = Object.entries(salesByProduct).sort((a, b) => b[1] - a[1])[0];
+
+            reportIncome.textContent = formatRupiah(totalSales);
+            reportOrderCount.textContent = totalOrders;
+            reportAvgOrder.textContent = formatRupiah(avgOrder);
+            reportBestSeller.textContent = bestSeller ? bestSeller[0] : '-';
+
+            if (!orders.length) {
+                reportTableBody.innerHTML = `
+                    <tr>
+                        <td colspan="4" style="text-align:center; color: var(--muted); padding: 18px 10px;">Belum ada data laporan.</td>
+                    </tr>
+                `;
+                return;
+            }
+
+            reportTableBody.innerHTML = orders.slice(0, 6).map((order) => {
+                const productSummary = order.items.map((item) => `${item.name} (${item.quantity}x)`).join(', ');
+                const statusClass = getStatusClass(order.status);
+                return `
+                    <tr>
+                        <td>${order.customerName}</td>
+                        <td>${productSummary}</td>
+                        <td><span class="status-pill ${statusClass}">${getStatusLabel(order.status)}</span></td>
+                        <td>${formatRupiah(order.total)}</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function renderOrders() {
+            const orders = JSON.parse(localStorage.getItem(orderStorageKey)) || [];
+            if (!dashboardOrderList) return;
+
+            if (!orders.length) {
+                dashboardOrderList.innerHTML = `
+                    <div class="order-item">
+                        <div>
+                            <strong>Belum ada order</strong>
+                            <div class="order-meta">Pesanan baru akan muncul di sini.</div>
+                        </div>
+                        <span class="status-pill pending">Menunggu</span>
+                    </div>
+                `;
+                renderStats();
+                return;
+            }
+
+            dashboardOrderList.innerHTML = orders.slice(0, 6).map((order) => {
+                const itemsText = order.items.map(item => `${item.name} (${item.quantity}x)`).join(', ');
+                const statusClass = getStatusClass(order.status);
+                const statusLabel = getStatusLabel(order.status);
+                return `
+                    <div class="order-item">
+                        <div>
+                            <strong>${order.customerName}</strong>
+                            <div class="order-meta">${itemsText} • ${formatRupiah(order.total)}</div>
+                        </div>
+                        <div class="order-actions">
+                            <select class="order-status-select" data-order-id="${order.id}">
+                                <option value="Pending" ${order.status === 'Pending' ? 'selected' : ''}>Menunggu</option>
+                                <option value="Paid" ${order.status === 'Paid' ? 'selected' : ''}>Dikemas</option>
+                                <option value="Shipped" ${order.status === 'Shipped' ? 'selected' : ''}>Dikirim</option>
+                            </select>
+                            <span class="status-pill ${statusClass}">${statusLabel}</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            document.querySelectorAll('.order-status-select').forEach((select) => {
+                select.addEventListener('change', (event) => {
+                    const orderId = Number(event.target.dataset.orderId);
+                    const ordersData = JSON.parse(localStorage.getItem(orderStorageKey)) || [];
+                    const updatedOrders = ordersData.map((order) => {
+                        if (order.id === orderId) {
+                            order.status = event.target.value;
+                        }
+                        return order;
+                    });
+                    localStorage.setItem(orderStorageKey, JSON.stringify(updatedOrders));
+                    renderOrders();
+                });
+            });
+
+            renderStats();
+        }
+
+        function renderProducts() {
+            const search = searchProductInput.value.trim().toLowerCase();
+            const filteredProducts = productList.filter((product) => {
+                const matchesFilter = currentFilter === 'all' || product.category === currentFilter;
+                const matchesSearch = product.name.toLowerCase().includes(search);
+                return matchesFilter && matchesSearch;
+            });
+
+            const productCountLabel = document.querySelector('.tag i.fa-solid.fa-table-list')?.closest('.tag');
+            if (productCountLabel) {
+                productCountLabel.innerHTML = `<i class="fa-solid fa-table-list"></i> Total ${productList.length}`;
+            }
+
+            if (!filteredProducts.length) {
+                productTableBody.innerHTML = `
+                    <tr>
+                        <td colspan="5" style="text-align:center; color: var(--muted); padding: 24px 10px;">
+                            Produk tidak ditemukan.
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            productTableBody.innerHTML = '';
+
+            filteredProducts.forEach((product) => {
+                const realIndex = productList.indexOf(product);
+                const statusText = product.stock <= 0 ? 'Habis' : `${product.stock} pcs`;
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>
+                        <div style="display:flex; flex-direction:column; gap:4px;">
+                            <strong>${product.name}</strong>
+                            ${product.stock <= 0 ? '<small style="color: #ef4444; font-weight: 600;">Stok habis</small>' : ''}
+                        </div>
+                    </td>
+                    <td>${getCategoryLabel(product.category)}</td>
+                    <td>${formatRupiah(product.price)}</td>
+                    <td>${statusText}</td>
+                    <td>
+                        <div class="mini-actions">
+                            <button class="mini-btn" type="button" data-action="restock" data-index="${realIndex}">Tambah Stok</button>
+                            <button class="mini-btn" type="button" data-action="edit" data-index="${realIndex}">Edit</button>
+                            <button class="mini-btn delete" type="button" data-action="delete" data-index="${realIndex}">Hapus</button>
+                        </div>
+                    </td>
+                `;
+                productTableBody.appendChild(row);
+            });
+        }
+
+        productForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const name = document.getElementById('productName').value.trim();
+            const category = document.getElementById('productCategory').value;
+            const price = Number(document.getElementById('productPrice').value);
+            const stock = Number(document.getElementById('productStock').value);
+            const image = document.getElementById('productImage').value.trim();
+
+            if (!name || !price || price <= 0 || Number.isNaN(stock) || stock < 0) return;
+
+            if (editingIndex !== null) {
+                productList[editingIndex] = { name, category, price, stock, image };
+                editingIndex = null;
+                productForm.querySelector('button[type="submit"]').innerHTML = '<i class="fa-solid fa-plus"></i> Simpan Produk';
+            } else {
+                productList.push({ name, category, price, stock, image });
+            }
+
+            saveProducts();
+            productForm.reset();
+            renderProducts();
+        });
+
+        productTableBody.addEventListener('click', function (event) {
+            const target = event.target.closest('button');
+            if (!target) return;
+
+            const index = Number(target.dataset.index);
+            if (target.dataset.action === 'delete') {
+                productList.splice(index, 1);
+                saveProducts();
+                renderProducts();
+            }
+
+            if (target.dataset.action === 'restock') {
+                const product = productList[index];
+                if (!product) return;
+
+                const extraStock = Number(window.prompt(`Tambah stok untuk "${product.name}"\nMasukkan jumlah stok tambahan:`, '5'));
+                if (!Number.isFinite(extraStock) || extraStock <= 0) {
+                    alert('Jumlah tambahan stok harus lebih dari 0.');
+                    return;
+                }
+
+                product.stock += extraStock;
+                saveProducts();
+                renderProducts();
+            }
+
+            if (target.dataset.action === 'edit') {
+                const product = productList[index];
+                if (!product) return;
+
+                document.getElementById('productName').value = product.name;
+                document.getElementById('productCategory').value = product.category;
+                document.getElementById('productPrice').value = product.price;
+                document.getElementById('productStock').value = product.stock;
+                document.getElementById('productImage').value = product.image || '';
+                editingIndex = index;
+                productForm.querySelector('button[type="submit"]').innerHTML = '<i class="fa-solid fa-pen"></i> Update Produk';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        });
+
+        searchProductInput.addEventListener('input', renderProducts);
+        renderOrders();
+
+        document.querySelectorAll('.chip').forEach((chip) => {
+            chip.addEventListener('click', () => {
+                currentFilter = chip.dataset.filter;
+                document.querySelectorAll('.chip').forEach((item) => item.classList.toggle('active', item === chip));
+                renderProducts();
+            });
+        });
+
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            localStorage.removeItem('adminLoggedIn');
+            window.location.href = 'login.html';
+        });
+
+        renderStats();
+        renderProducts();
+    </script>
+</body>
+</html>
